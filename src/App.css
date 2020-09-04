@@ -1,3 +1,25 @@
+:root {
+  --manada-claro: #ffefaf;
+  --manada-regular: #ffd500;
+  --manada-oscuro: #fbb900;
+  --tropa-claro: #e4ecbc;
+  --tropa-regular: #009d3d;
+  --tropa-oscuro: #146822;
+  --comunidad-claro: #dfedfa;
+  --comunidad-regular: #0075be;
+  --comunidad-oscuro: #004c99;
+  --clan-claro-bg: #f4b5b5;
+  --clan-claro: #f4bb61;
+  --clan-regular: #e10613;
+  --clan-oscuro: #c61927;
+  --asmac-claro: #c6a7cd;
+  --asmac-regular: #8331a7;
+  --asmac-oscuro: #702882;
+  --oxford-claro: #a9c8e6;
+  --oxford-regular: #5a9bd2;
+  --oxford-oscuro: #172a67;
+}
+
 .App {
   text-align: center;
 }
@@ -5,6 +27,77 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+#root {
+  background-color: var(--asmac-claro);
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+nav {
+  background-color: var(--asmac-oscuro);
+}
+
+.btn-primary {
+  background-color: var(--asmac-oscuro);
+  border-color: var(--asmac-oscuro);
+}
+
+nav {
+  height: 56px;
+}
+
+.navbar {
+  padding: 4px 8px;
+}
+
+.navbar-brand {
+  padding: 0;
+}
+
+.navbar-brand img {
+  height: 40px;
+}
+
+.manada {
+  background-color: var(--manada-claro);
+}
+
+.manada .btn-primary,
+.manada nav {
+  background-color: var(--manada-oscuro);
+  border-color: var(--manada-oscuro);
+}
+
+.tropa {
+  background-color: var(--tropa-claro);
+}
+
+.tropa .btn-primary,
+.tropa nav {
+  background-color: var(--tropa-oscuro);
+  border-color: var(--tropa-oscuro);
+}
+
+.comunidad {
+  background-color: var(--comunidad-claro);
+}
+
+.comunidad .btn-primary,
+.comunidad nav {
+  background-color: var(--comunidad-oscuro);
+  border-color: var(--comunidad-oscuro);
+}
+
+.clan {
+  background-color: var(--clan-claro-bg);
+}
+
+.clan .btn-primary,
+.clan nav {
+  background-color: var(--clan-oscuro);
+  border-color: var(--clan-oscuro);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -34,5 +127,11 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  #root {
+    font-size: 20px;
   }
 }

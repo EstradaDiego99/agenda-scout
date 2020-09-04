@@ -1,0 +1,69 @@
+/** REGISTRO */
+.card {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+#registro-component {
+  height: calc(calc(var(--vh, 1vh) * 100) - 56px);
+  overflow-y: scroll;
+}
+
+form {
+  height: 100%;
+}
+
+.form-group {
+  margin-bottom: 2em;
+  max-width: 320px;
+}
+
+.manada .btn-manada {
+  border: 4px var(--oxford-oscuro) solid;
+}
+
+.tropa .btn-tropa {
+  border: 4px var(--oxford-oscuro) solid;
+}
+
+.comunidad .btn-comunidad {
+  border: 4px var(--oxford-oscuro) solid;
+}
+
+.clan .btn-clan {
+  border: 4px var(--oxford-oscuro) solid;
+}
+
+#consentimiento-container {
+  height: 5em;
+}
+
+small {
+  display: block;
+  line-height: 1.25em;
+}
+
+.form-group img {
+  border: 4px transparent solid;
+  width: 25%;
+}
+
+form > .card {
+  height: 100%;
+}
+
+form .card-body {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+}
+
+.btn-primary {
+  font-size: 1.5em;
+  width: 100%;
+}
+
+.nuevo-grupo {
+  font-size: 0.5em;
+}

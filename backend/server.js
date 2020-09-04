@@ -21,6 +21,15 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
+const muchachosRouter = require("./routes/muchachos");
+app.use("/muchachos", muchachosRouter);
+
+const gruposRouter = require("./routes/grupos");
+app.use("/grupos", gruposRouter);
+
+const provinciasRouter = require("./routes/provincias");
+app.use("/provincias", provinciasRouter);
+
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
