@@ -29,10 +29,22 @@
   pointer-events: none;
 }
 
+body {
+  height: 100vh;
+  min-height: 100vh;
+}
+
 #root {
   background-color: var(--asmac-claro);
-  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100);
+  min-height: 100vh;
+}
+
+#root > div {
+  min-height: 100vh;
+}
+
+.input-group-text {
+  font-size: inherit;
 }
 
 nav {
@@ -50,6 +62,9 @@ nav {
 
 .navbar {
   padding: 4px 8px;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
 }
 
 .navbar-brand {
@@ -60,11 +75,16 @@ nav {
   height: 40px;
 }
 
+main {
+  padding-top: 56px;
+}
+
 .manada {
   background-color: var(--manada-claro);
 }
 
 .manada .btn-primary,
+.manada .btn-back,
 .manada nav {
   background-color: var(--manada-oscuro);
   border-color: var(--manada-oscuro);
@@ -75,6 +95,7 @@ nav {
 }
 
 .tropa .btn-primary,
+.tropa .btn-back,
 .tropa nav {
   background-color: var(--tropa-oscuro);
   border-color: var(--tropa-oscuro);
@@ -85,6 +106,7 @@ nav {
 }
 
 .comunidad .btn-primary,
+.comunidad .btn-back,
 .comunidad nav {
   background-color: var(--comunidad-oscuro);
   border-color: var(--comunidad-oscuro);
@@ -95,6 +117,7 @@ nav {
 }
 
 .clan .btn-primary,
+.clan .btn-back,
 .clan nav {
   background-color: var(--clan-oscuro);
   border-color: var(--clan-oscuro);
@@ -130,8 +153,9 @@ nav {
   }
 }
 
-@media only screen and (min-width: 992px) {
-  #root {
-    font-size: 20px;
+@media only screen and (min-width: 768px) {
+  #root,
+  .form-control {
+    /* font-size: 20px; */
   }
 }

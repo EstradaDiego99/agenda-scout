@@ -25,8 +25,16 @@ const seccionesNombreIndividuo = {
   CLAN: "rover",
 };
 
+/** Géneros que la aplicación soporta para referirse a sus usuarios */
+const listaGeneros = {
+  NEUTRO: "N",
+  FEMENINO: "F",
+  MASCULINO: "M",
+};
+
 module.exports = {
   seccionesNombreCompleto,
   seccionesNombreConjunto,
   seccionesNombreIndividuo,
+  listaGeneros,
 };

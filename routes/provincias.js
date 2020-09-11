@@ -1,6 +1,15 @@
 const router = require("express").Router();
 const { Provincia } = require("../models/provincia.model");
 
+// CREATE
+router.route("/").post((req, res) => {
+  const nuevaProvincia = new Provincia(req.body);
+  nuevaProvincia
+    .save()
+    .then(() => res.json("Se ha registrado nueva provincia."))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 // READ
 router.route("/").get((req, res) => {
   Provincia.find()

@@ -25,10 +25,13 @@ const miembroSchema = new Schema(
     fechaRegistro: { type: Date, required: false },
 
     /** Correo electrónico de contacto con el miembro */
-    correo: { type: String, required: true },
+    correo: { type: String, required: true, unique: true },
 
     /** Contraseña encriptada para inicio de sesión */
     contrasenia: { type: String, required: true },
+
+    /** Género con el cual la aplicación se referirá al miembro */
+    genero: { type: String, required: true },
   },
   {
     collection: "membresia",
