@@ -99,7 +99,7 @@ export default function RegistroMiembro(props) {
       `);
     }
 
-    if (!provincia && !nombreNuevaProvincia) {
+    if (!provincia.length && !nombreNuevaProvincia.length) {
       incompleteForm = true;
       setErrorProvincia(`
         Se debe seleccionar una provincia o introducir el nombre de una nueva
