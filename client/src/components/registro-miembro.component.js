@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { seccionesNombreConjunto, listaGeneros } from "../globals";
 import { es } from "date-fns/locale";
 import "./registro-miembro.component.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function RegistroMiembro(props) {
   const [CUM, setCUM] = useState("");
@@ -174,8 +175,7 @@ export default function RegistroMiembro(props) {
 
     if (incompleteForm) return;
 
-    const salt = await bcrypt.genSalt();
-    const contraseniaHash = await bcrypt.hash(contrasenia, salt);
+    const contraseniaHash = await bcrypt.hash(contrasenia, 10);
 
     const nuevoMuchacho = {
       CUM: CUM,
@@ -368,6 +368,12 @@ export default function RegistroMiembro(props) {
                       return;
                     }
                     if (errorSeccionMissing) return;
+
+                    if (seccion === seccionesNombreConjunto.MANADA) {
+                      alert(
+                        "Recuerda llenar este formulario en conjunto con un adulto responsable."
+                      );
+                    }
 
                     setEtapaRegistro((etapa) => etapa + 1);
                   }}
@@ -689,7 +695,7 @@ export default function RegistroMiembro(props) {
                   type="submit"
                   value="Inicio de Sesión"
                   className="btn btn-primary mt-4"
-                  onClick={() => (window.location = "/")}
+                  onClick={() => (window.location = "/login")}
                 />
               </div>
             </div>

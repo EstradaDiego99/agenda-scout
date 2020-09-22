@@ -1,0 +1,34 @@
+#home-component {
+  align-items: center;
+}
+
+h2 {
+  margin: 0.5em 0;
+  text-align: center;
+}
+
+.home-icon {
+  -webkit-mask: url(../mi-agenda-label.svg) no-repeat center;
+  mask: url(../mi-agenda-label.svg) no-repeat center;
+  min-height: 136px;
+}
+
+#home-component small {
+  text-align: center;
+}
+
+.manada .home-icon {
+  background-color: var(--manada-regular);
+}
+
+.tropa .home-icon {
+  background-color: var(--tropa-regular);
+}
+
+.comunidad .home-icon {
+  background-color: var(--comunidad-regular);
+}
+
+.clan .home-icon {
+  background-color: var(--clan-regular);
+}

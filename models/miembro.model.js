@@ -36,6 +36,7 @@ const miembroSchema = new Schema(
   {
     collection: "membresia",
     discriminatorKey: "tipoDeMiembro",
+    strict: false,
   }
 );
 

@@ -1,9 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Home from "./components/home.component";
 import RegistroMiembro from "./components/registro-miembro.component";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import InicioSesionComponent from "./components/inicio-sesion.component";
 import "./App.css";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
     <Router>
       <Route path="/" exact component={Home} />
       <Route path="/registro" exact component={RegistroMiembro} />
+      <Route path="/login" exact component={InicioSesionComponent} />
     </Router>
   );
 }

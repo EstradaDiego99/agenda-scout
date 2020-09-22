@@ -34,6 +34,10 @@ body {
   min-height: 100vh;
 }
 
+a {
+  cursor: pointer;
+}
+
 #root {
   background-color: var(--asmac-claro);
   min-height: 100vh;
@@ -63,8 +67,18 @@ nav {
 .navbar {
   padding: 4px 8px;
   position: fixed;
+  justify-content: space-between;
   width: 100%;
   z-index: 10;
+}
+
+.logout {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 2em;
+  padding: 0;
+  height: 40px;
 }
 
 .navbar-brand {
@@ -77,6 +91,10 @@ nav {
 
 main {
   padding-top: 56px;
+  padding-bottom: 32px;
+  min-height: calc(100vh - 32px);
+  display: flex;
+  flex-direction: column;
 }
 
 .manada {
@@ -123,6 +141,10 @@ main {
   border-color: var(--clan-oscuro);
 }
 
+footer {
+  height: 32px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -156,6 +178,6 @@ main {
 @media only screen and (min-width: 768px) {
   #root,
   .form-control {
-    /* font-size: 20px; */
+    font-size: 20px;
   }
 }

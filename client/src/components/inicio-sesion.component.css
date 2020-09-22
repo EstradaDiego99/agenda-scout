@@ -1,0 +1,15 @@
+.registro-btn,
+.registro-btn:hover,
+.registro-btn:active,
+.registro-btn:after,
+.registro-btn:visited,
+.registro-btn:focus {
+  text-align: center;
+  color: var(--asmac-oscuro) !important;
+  background-color: transparent !important;
+  margin-top: 1em;
+  padding: 0.25em;
+  border: solid 2px;
+  border-color: var(--asmac-oscuro) !important;
+  border-radius: 4px;
+}

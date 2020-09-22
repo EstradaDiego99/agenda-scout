@@ -30,6 +30,12 @@ app.use("/grupos", gruposRouter);
 const provinciasRouter = require("./routes/provincias");
 app.use("/provincias", provinciasRouter);
 
+const loginRouter = require("./routes/login");
+app.use("/login", loginRouter);
+
+const authRouter = require("./routes/authenticate");
+app.use("/authenticate", authRouter);
+
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });

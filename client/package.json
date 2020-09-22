@@ -8,6 +8,7 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.3.1",
     "date-fns": "^2.16.1",
+    "js-cookie": "^2.2.1",
     "react": "^16.8.6",
     "react-datepicker": "^2.5.0",
     "react-dom": "^16.8.6",

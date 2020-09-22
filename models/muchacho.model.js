@@ -19,6 +19,7 @@ const muchachoSchema = new Schema(
   {
     collection: "muchachos",
     discriminatorKey: "seccion",
+    strict: false,
   }
 );
 
