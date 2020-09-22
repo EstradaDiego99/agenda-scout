@@ -32,9 +32,15 @@ const listaGeneros = {
   MASCULINO: "M",
 };
 
+const backendURL =
+  process.env.NODE_ENV === "production"
+    ? "https://agenda-scout.herokuapp.com"
+    : "http://localhost:5000";
+
 module.exports = {
   seccionesNombreCompleto,
   seccionesNombreConjunto,
   seccionesNombreIndividuo,
   listaGeneros,
+  backendURL,
 };

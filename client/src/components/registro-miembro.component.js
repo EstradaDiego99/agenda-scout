@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import bcrypt from "bcryptjs";
-import { seccionesNombreConjunto, listaGeneros } from "../globals";
+import { seccionesNombreConjunto, listaGeneros, backendURL } from "../globals";
 import { es } from "date-fns/locale";
 import "./registro-miembro.component.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -42,10 +42,10 @@ export default function RegistroMiembro(props) {
   const [errorGrupo, setErrorGrupo] = useState("");
 
   const leerProvinciasYGrupos = async () => {
-    const resProvincias = await axios.get("http://localhost:5000/provincias/");
+    const resProvincias = await axios.get(`${backendURL}/provincias/`);
     if (resProvincias.data.length > 0) setListaProvincias(resProvincias.data);
 
-    const resGrupos = await axios.get("http://localhost:5000/grupos/");
+    const resGrupos = await axios.get(`${backendURL}/grupos/`);
     if (resGrupos.data.length > 0) setListaGrupos(resGrupos.data);
   };
 
@@ -197,7 +197,7 @@ export default function RegistroMiembro(props) {
           codigo: codigoNuevaProvincia,
           nombre: nombreNuevaProvincia,
         };
-        await axios.post("http://localhost:5000/provincias/", nuevaProvincia);
+        await axios.post(`${backendURL}/provincias/`, nuevaProvincia);
         setNombreNuevaProvincia("");
       } catch (error) {
         return;
@@ -212,7 +212,7 @@ export default function RegistroMiembro(props) {
           numero: numeroNuevoGrupo,
           nombre: nombreNuevoGrupo,
         };
-        await axios.post("http://localhost:5000/grupos/", nuevoGrupo);
+        await axios.post(`${backendURL}/grupos/`, nuevoGrupo);
         setNombreNuevoGrupo("");
       } catch (error) {
         return;
@@ -220,7 +220,7 @@ export default function RegistroMiembro(props) {
     }
 
     try {
-      await axios.post("http://localhost:5000/muchachos/", nuevoMuchacho);
+      await axios.post(`${backendURL}/muchachos/`, nuevoMuchacho);
       setEtapaRegistro((etapa) => etapa + 1);
     } catch (error) {
       if (error.response.data && error.response.data.repeatedKey) {
@@ -538,7 +538,7 @@ export default function RegistroMiembro(props) {
 
                 {provincia === "inexistente" && (
                   <div className="form-group">
-                    <label>Nombre y siglas de la provincia: </label>
+                    <label>Siglas y nombre de la provincia: </label>
                     <div className="d-flex">
                       <input
                         name="codigoNuevaProvincia"

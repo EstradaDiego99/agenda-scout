@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { backendURL } from "../globals";
 import "./inicio-sesion.component.css";
 
 export default function InicioSesion() {
@@ -33,10 +34,7 @@ export default function InicioSesion() {
     };
 
     try {
-      const loginResponse = await axios.post(
-        "http://localhost:5000/login/",
-        loginForm
-      );
+      const loginResponse = await axios.post(`${backendURL}/login/`, loginForm);
       document.cookie = `cum_token=${loginResponse.data.token}`;
       window.location = "/";
     } catch (error) {

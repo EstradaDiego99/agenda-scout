@@ -34,7 +34,6 @@ router.route("/:CUM").get((req, res) => {
 
 // UPDATE
 router.route("/:CUM").post((req, res) => {
-  console.log(req.body);
   Muchacho.findOneAndUpdate({ CUM: req.params.CUM }, req.body, {
     //options
     returnNewDocument: true,

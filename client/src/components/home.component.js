@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { seccionesNombreConjunto, listaGeneros } from "../globals";
+import { seccionesNombreConjunto, listaGeneros, backendURL } from "../globals";
 import "./home.component.css";
 
 export default function Home() {
@@ -9,15 +9,12 @@ export default function Home() {
 
   const autenticarToken = async () => {
     try {
-      const authResponse = await axios.post(
-        "http://localhost:5000/authenticate/",
-        {
-          token: Cookies.get("cum_token"),
-        }
-      );
+      const authResponse = await axios.post(`${backendURL}/authenticate/`, {
+        token: Cookies.get("cum_token"),
+      });
       const loggedCUM = authResponse.data.jwtVerification.CUM;
       const loggedMiembro = await axios.get(
-        `http://localhost:5000/muchachos/${loggedCUM}`
+        `${backendURL}/muchachos/${loggedCUM}`
       );
       if (!loggedMiembro.data) {
         const error = new Error();
@@ -92,7 +89,6 @@ export default function Home() {
           </>
         )}
       </main>
-      <footer></footer>
     </div>
   );
 }
