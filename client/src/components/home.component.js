@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { seccionesNombreConjunto, listaGeneros, backendURL } from "../globals";
+import { seccionesNombreConjunto, backendURL } from "../globals";
 import "./home.component.css";
 
 export default function Home() {
@@ -42,9 +42,9 @@ export default function Home() {
         <a className="navbar-brand" href="/">
           <img src="/images/mi-agenda-label.svg" alt="home"></img>
         </a>
-        <a className="logout-container" onClick={borrarSesion}>
+        <button className="logout-container" onClick={borrarSesion}>
           <i className="input-group-text material-icons logout">exit_to_app</i>
-        </a>
+        </button>
       </nav>
 
       <main id="home-component">

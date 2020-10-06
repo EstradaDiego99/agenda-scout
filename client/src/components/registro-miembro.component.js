@@ -14,6 +14,7 @@ export default function RegistroMiembro(props) {
   const [nombreSelva, setNombreSelva] = useState("");
   const [correo, setCorreo] = useState("");
   const [contrasenia, setContrasenia] = useState("");
+  const [contraseniaVerif, setContraseniaVerif] = useState("");
   const [genero, setGenero] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState(
     new Date("2000/01/01")
@@ -43,10 +44,20 @@ export default function RegistroMiembro(props) {
 
   const leerProvinciasYGrupos = async () => {
     const resProvincias = await axios.get(`${backendURL}/provincias/`);
-    if (resProvincias.data.length > 0) setListaProvincias(resProvincias.data);
+    if (resProvincias.data.length > 0) {
+      resProvincias.data.sort((a, b) =>
+        a.codigo > b.codigo ? 1 : b.codigo > a.codigo ? -1 : 0
+      );
+      setListaProvincias(resProvincias.data);
+    }
 
     const resGrupos = await axios.get(`${backendURL}/grupos/`);
-    if (resGrupos.data.length > 0) setListaGrupos(resGrupos.data);
+    if (resGrupos.data.length > 0) {
+      resGrupos.data.sort((a, b) =>
+        a.numero > b.numero ? 1 : b.numero > a.numero ? -1 : 0
+      );
+      setListaGrupos(resGrupos.data);
+    }
   };
 
   useEffect(() => {
@@ -100,23 +111,37 @@ export default function RegistroMiembro(props) {
       `);
     }
 
-    if (!provincia.length && !nombreNuevaProvincia.length) {
+    if (!provincia) {
       incompleteForm = true;
       setErrorProvincia(`
-        Se debe seleccionar una provincia o introducir el nombre de una nueva
-        provincia.
+        Se debe seleccionar una provincia o introducir el código y nombre de una
+        nueva provincia.
       `);
     }
 
-    if (provincia === "inexistente" && !nombreNuevaProvincia) {
+    if (
+      provincia === "inexistente" &&
+      (!codigoNuevaProvincia || !nombreNuevaProvincia)
+    ) {
       incompleteForm = true;
       setErrorProvincia(`
-        Se debe seleccionar una provincia o introducir el nombre de una nueva
-        provincia.
+        Se debe seleccionar una provincia o introducir el código y nombre de una
+        nueva provincia.
       `);
     }
 
-    if (grupo === 0 && !nombreNuevoGrupo.length) {
+    if (
+      provincia === "inexistente" &&
+      listaProvincias.includes(codigoNuevaProvincia)
+    ) {
+      incompleteForm = true;
+      setErrorProvincia(`
+        La provincia que intentas introducir ya existe. ¿Lo buscaste a fondo?
+        ¿O tal vez te estás confundiendo de número?
+      `);
+    }
+
+    if (grupo === 0) {
       incompleteForm = true;
       setErrorGrupo(`
         Se debe seleccionar un grupo o introducir el número y nombre de un
@@ -124,10 +149,11 @@ export default function RegistroMiembro(props) {
       `);
     }
 
-    if (grupo === -1 && !nombreNuevoGrupo.length) {
+    if (grupo === -1 && (!numeroNuevoGrupo || !nombreNuevoGrupo)) {
       incompleteForm = true;
       setErrorGrupo(`
-        Se debe introducir el número y nombre de un nuevo grupo.
+        Se debe seleccionar un grupo o introducir el número y nombre de un
+        nuevo grupo.
       `);
     }
 
@@ -159,7 +185,7 @@ export default function RegistroMiembro(props) {
 
     let incompleteForm = false;
 
-    if (!correo.length) {
+    if (!correo) {
       incompleteForm = true;
       setErrorCorreo(`
         El correo no puede estar vacío.
@@ -170,6 +196,13 @@ export default function RegistroMiembro(props) {
       incompleteForm = true;
       setErrorContrasenia(`
         La contrasenia debe ser de minimo 8 caracteres.
+      `);
+    }
+
+    if (contrasenia !== contraseniaVerif) {
+      incompleteForm = true;
+      setErrorContrasenia(`
+        Las contraseñas deben coincidir.
       `);
     }
 
@@ -245,16 +278,12 @@ export default function RegistroMiembro(props) {
 
   const listaOpcionesProvincias = listaProvincias.map((provincia) => (
     <option key={provincia.codigo} value={provincia.codigo}>
-      {provincia.nombre}
+      {provincia.codigo} - {provincia.nombre}
     </option>
   ));
 
   const listaOpcionesGrupos = listaGrupos
-    .filter(
-      (grupo) =>
-        grupo.provincia ===
-        (provincia === "inexistente" ? codigoNuevaProvincia : provincia)
-    )
+    .filter((grupo) => grupo.provincia === provincia)
     .map((grupo) => (
       <option key={grupo.provincia + grupo.numero} value={grupo.numero}>
         GPO {grupo.numero} - {grupo.nombre}
@@ -464,7 +493,7 @@ export default function RegistroMiembro(props) {
                       Masculino
                     </option>
                     <option value={`${listaGeneros.NEUTRO}`} key="N">
-                      Gracias, igualmente
+                      Sí (Neutro)
                     </option>
                   </select>
                   <small className="text-danger">{errorGrupo}</small>
@@ -504,8 +533,15 @@ export default function RegistroMiembro(props) {
                       const listaCodigos = listaProvincias.map(
                         (provincia) => provincia.codigo
                       );
-                      if (listaCodigos.includes(newCUM.substring(0, 3)))
+                      if (newCUM.length < 3) {
+                        setProvincia("");
+                        return;
+                      }
+                      if (listaCodigos.includes(newCUM.substring(0, 3))) {
                         setProvincia(newCUM.substring(0, 3).toUpperCase());
+                      } else {
+                        setProvincia("inexistente");
+                      }
 
                       setErrorCUM("");
                     }}
@@ -523,6 +559,13 @@ export default function RegistroMiembro(props) {
                     onChange={(e) => {
                       setProvincia(e.target.value);
                       setErrorProvincia("");
+                      if (provincia !== "inexistente") {
+                        setCodigoNuevaProvincia("");
+                        setNombreNuevaProvincia("");
+                        setGrupo(0);
+                        setNumeroNuevoGrupo("");
+                        setNombreNuevoGrupo("");
+                      }
                     }}
                   >
                     <option value="" key="" disabled>
@@ -539,6 +582,11 @@ export default function RegistroMiembro(props) {
                 {provincia === "inexistente" && (
                   <div className="form-group">
                     <label>Siglas y nombre de la provincia: </label>
+                    <small>
+                      Las siglas de tu provincia la puedes encontrar en los
+                      primeros tres caracteres de tu CUM, por ejemplo, JAL -
+                      Jalisco.
+                    </small>
                     <div className="d-flex">
                       <input
                         name="codigoNuevaProvincia"
@@ -582,6 +630,10 @@ export default function RegistroMiembro(props) {
                     onChange={(e) => {
                       setGrupo(parseInt(e.target.value));
                       setErrorGrupo("");
+                      if (grupo > 0) {
+                        setNumeroNuevoGrupo("");
+                        setNombreNuevoGrupo("");
+                      }
                     }}
                   >
                     <option value="0" key="0" disabled>
@@ -668,6 +720,17 @@ export default function RegistroMiembro(props) {
                     value={contrasenia}
                     onChange={(e) => {
                       setContrasenia(e.target.value);
+                      setErrorContrasenia("");
+                    }}
+                  />
+                  <label>Confirma tu contraseña: </label>
+                  <input
+                    type="password"
+                    autoComplete="off"
+                    className="form-control"
+                    value={contraseniaVerif}
+                    onChange={(e) => {
+                      setContraseniaVerif(e.target.value);
                       setErrorContrasenia("");
                     }}
                   />

@@ -41,20 +41,28 @@ form > div {
   max-width: 320px;
 }
 
-.manada .btn-manada {
-  border: 4px var(--oxford-oscuro) solid;
+#secciones-container img {
+  margin: 4px;
+  width: calc(25% - 8px);
+  -webkit-box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.75);
 }
 
-.tropa .btn-tropa {
-  border: 4px var(--oxford-oscuro) solid;
+.manada #secciones-container > img:not(.btn-manada) {
+  opacity: 0.5;
 }
 
-.comunidad .btn-comunidad {
-  border: 4px var(--oxford-oscuro) solid;
+.tropa #secciones-container > img:not(.btn-tropa) {
+  opacity: 0.5;
 }
 
-.clan .btn-clan {
-  border: 4px var(--oxford-oscuro) solid;
+.comunidad #secciones-container > img:not(.btn-comunidad) {
+  opacity: 0.5;
+}
+
+.clan #secciones-container > img:not(.btn-clan) {
+  opacity: 0.5;
 }
 
 #consentimiento-container {
@@ -64,11 +72,7 @@ form > div {
 small {
   display: block;
   line-height: 1.25em;
-}
-
-.form-group img {
-  border: 4px transparent solid;
-  width: 25%;
+  margin-bottom: 0.5rem;
 }
 
 form .card-body {
