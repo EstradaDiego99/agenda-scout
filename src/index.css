@@ -1,0 +1,152 @@
+:root {
+  --manada-claro: #ffefaf;
+  --manada-regular: #ffd500;
+  --manada-oscuro: #fbb900;
+  --tropa-claro: #e4ecbc;
+  --tropa-regular: #009d3d;
+  --tropa-oscuro: #146822;
+  --comunidad-claro: #dfedfa;
+  --comunidad-regular: #0075be;
+  --comunidad-oscuro: #004c99;
+  --clan-claro-bg: #f4b5b5;
+  --clan-claro: #f4bb61;
+  --clan-regular: #e10613;
+  --clan-oscuro: #c61927;
+  --asmac-claro: #c6a7cd;
+  --asmac-regular: #8331a7;
+  --asmac-oscuro: #702882;
+  --oxford-claro: #a9c8e6;
+  --oxford-regular: #5a9bd2;
+  --oxford-oscuro: #172a67;
+}
+
+body {
+  height: 100vh;
+  min-height: 100vh;
+}
+
+a {
+  cursor: pointer;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+#root {
+  background-color: var(--asmac-claro);
+  min-height: 100vh;
+}
+
+#root > div {
+  min-height: 100vh;
+}
+
+.input-group-text {
+  font-size: inherit;
+}
+
+nav {
+  background-color: var(--asmac-oscuro);
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+}
+
+.btn-primary {
+  background-color: var(--asmac-oscuro);
+  border-color: var(--asmac-oscuro);
+}
+
+nav {
+  height: 56px;
+}
+
+.navbar {
+  padding: 4px 8px;
+  position: fixed;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 10;
+}
+
+.logout {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 2em;
+  padding: 0;
+  height: 40px;
+}
+
+.navbar-brand {
+  padding: 0;
+}
+
+.navbar-brand img {
+  height: 40px;
+}
+
+main {
+  padding-top: 56px;
+  padding-bottom: 32px;
+  min-height: calc(100vh - 32px);
+  display: flex;
+  flex-direction: column;
+}
+
+.manada {
+  background-color: var(--manada-claro);
+}
+
+.manada .btn-primary,
+.manada .btn-back,
+.manada nav {
+  background-color: var(--manada-oscuro);
+  border-color: var(--manada-oscuro);
+}
+
+.tropa {
+  background-color: var(--tropa-claro);
+}
+
+.tropa .btn-primary,
+.tropa .btn-back,
+.tropa nav {
+  background-color: var(--tropa-oscuro);
+  border-color: var(--tropa-oscuro);
+}
+
+.comunidad {
+  background-color: var(--comunidad-claro);
+}
+
+.comunidad .btn-primary,
+.comunidad .btn-back,
+.comunidad nav {
+  background-color: var(--comunidad-oscuro);
+  border-color: var(--comunidad-oscuro);
+}
+
+.clan {
+  background-color: var(--clan-claro-bg);
+}
+
+.clan .btn-primary,
+.clan .btn-back,
+.clan nav {
+  background-color: var(--clan-oscuro);
+  border-color: var(--clan-oscuro);
+}
+
+footer {
+  height: 32px;
+}
+
+@media only screen and (min-width: 768px) {
+  #root,
+  .form-control {
+    font-size: 20px;
+  }
+}
