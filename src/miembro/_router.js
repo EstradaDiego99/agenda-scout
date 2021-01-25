@@ -44,6 +44,7 @@ router.route("/:CUM").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+// DELETE
 router.route("/:CUM").delete((req, res) => {
   Miembro.deleteOne({ CUM: req.params.CUM })
     .then(() => res.json("Miembro ha sido removido del sistema."))
