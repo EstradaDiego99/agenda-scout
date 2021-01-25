@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { backendURL } from "../../globals";
+import { guardarSesion } from "../../_auth/utils";
 import "./_style.css";
 
 async function iniciarSesion(
   correo,
   contrasenia,
   setErrCorreo,
-  setErrContrasenia
+  setErrContrasenia,
+  history
 ) {
   if (!correo) {
     setErrCorreo("Introduce tu CUM o el correo con el que registraste");
@@ -38,11 +41,13 @@ async function iniciarSesion(
     });
   if (!loginResponse) return;
 
-  document.cookie = `cum_token=${loginResponse.data.token}`;
-  window.location = "/";
+  guardarSesion(loginResponse.data.token);
+  history.goBack();
 }
 
 export default function LogIn() {
+  const history = useHistory();
+
   const [correo, setCorreo] = useState("");
   const [contrasenia, setContrasenia] = useState("");
 
@@ -64,7 +69,13 @@ export default function LogIn() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            iniciarSesion(correo, contrasenia, setErrCorreo, setErrContrasenia);
+            iniciarSesion(
+              correo,
+              contrasenia,
+              setErrCorreo,
+              setErrContrasenia,
+              history
+            );
           }}
           autoComplete="off"
           className="card"

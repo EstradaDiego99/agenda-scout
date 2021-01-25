@@ -13,9 +13,14 @@ async function autenticarToken() {
   return loggedMiembro.data;
 }
 
+/** Guardar una cookie dado un token para recordar la sesión en el dispositivo */
+function guardarSesion(token) {
+  Cookies.set("cum_token", token);
+}
+
 /** Remover las cookies del navegador para desconectar al usuario en el dispositivo */
 function borrarSesion() {
   Cookies.remove("cum_token");
 }
 
-export { autenticarToken, borrarSesion };
+export { autenticarToken, guardarSesion, borrarSesion };
