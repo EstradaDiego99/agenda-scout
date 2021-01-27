@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./_style.css";
 import { iniciarSesion } from "./utils";
 
@@ -108,12 +108,11 @@ export default function LogIn() {
               value="Iniciar sesión"
               className="btn btn-lg btn-primary mt-4 w-100"
             />
-            <button
-              className="btn registro-btn mt-1 w-100"
-              onClick={() => history.replace("/registro")}
-            >
-              Registrarme
-            </button>
+            <Link to="/registro" replace>
+              <button className="btn registro-btn mt-1 w-100">
+                Registrarme
+              </button>
+            </Link>
           </div>
         </form>
       </main>

@@ -4,7 +4,6 @@ const { Miembro } = require("./_model");
 // CREATE
 router.post("/", (req, res) => {
   const nuevoMiembro = new Miembro(req.body);
-  console.log(nuevoMiembro);
   nuevoMiembro
     .save()
     .then(() => res.json("Se ha registrado nuevo miembro!"))
