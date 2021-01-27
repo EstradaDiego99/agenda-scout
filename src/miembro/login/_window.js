@@ -3,6 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 import "./_style.css";
 import { iniciarSesion } from "./utils";
 
+import Header from "../../header/_component";
+
 /**
  * Formulario del Inicio de Sesión
  * @window
@@ -52,11 +54,7 @@ export default function LogIn() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark">
-        <a className="navbar-brand" href="/">
-          <img src="/images/mi-agenda-label.svg" alt="home"></img>
-        </a>
-      </nav>
+      <Header />
 
       <main
         id="login"

@@ -6,6 +6,7 @@ import { seccionesNombreConjunto, backendURL } from "../../globals";
 import "./_style.css";
 import { iniciarSesion } from "../login/utils";
 
+import Header from "../../header/_component";
 import FormEdad from "./form01_edad";
 import FormInfoPersonal from "./form02_personal-info";
 import FormInfoScout from "./form03_scout-info";
@@ -94,11 +95,7 @@ export default function SignUp() {
 
   return (
     <div className={seccion}>
-      <nav className="navbar navbar-expand-lg navbar-dark">
-        <a className="navbar-brand" href="/">
-          <img src="/images/mi-agenda-label.svg" alt="home"></img>
-        </a>
-      </nav>
+      <Header />
 
       <main id="registro-component">
         <form autoComplete="off">

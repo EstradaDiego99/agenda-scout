@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { seccionesNombreConjunto } from "../globals";
-import { autenticarToken, borrarSesion } from "../_auth/utils";
+import { autenticarToken } from "../_auth/utils";
 import "./_style.css";
+
+import Header from "../header/_component";
 
 export default function Home() {
   const history = useHistory();
@@ -36,20 +38,7 @@ export default function Home() {
 
   return (
     <div className={miembro.seccion}>
-      <nav className="navbar navbar-expand-lg navbar-dark">
-        <a className="navbar-brand" href="/">
-          <img src="/images/mi-agenda-label.svg" alt="home"></img>
-        </a>
-        <button
-          className="logout-container"
-          onClick={() => {
-            borrarSesion();
-            history.push("/login");
-          }}
-        >
-          <i className="input-group-text material-icons logout">exit_to_app</i>
-        </button>
-      </nav>
+      <Header logoLink="/" showLogout />
 
       <main id="home-component">
         <h2>
