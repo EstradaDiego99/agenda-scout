@@ -2,20 +2,26 @@ const router = require("express").Router();
 const { Miembro } = require("./_model");
 
 // CREATE
-router.route("/").post((req, res) => {
+router.post("/", (req, res) => {
   const nuevoMiembro = new Miembro(req.body);
+  console.log(nuevoMiembro);
   nuevoMiembro
     .save()
     .then(() => res.json("Se ha registrado nuevo miembro!"))
     .catch((err) => {
+      console.log(err);
       if (err.code === 11000) {
         res.status(400).json({
-          errorMesage: `Error: ${err}`,
-          repeatedKey: Object.keys(err.keyValue)[0],
+          msg: "Hubo un error al registrar miembro",
+          error: err,
+          repeatedKey: Object.keys(err.keyValue),
         });
-      } else {
-        res.status(400).json(`Error: ${err}`);
+        return;
       }
+      res.status(400).json({
+        msg: "Hubo un error al registrar miembro",
+        error: err,
+      });
     });
 });
 

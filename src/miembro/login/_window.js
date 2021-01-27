@@ -1,50 +1,12 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-import { backendURL } from "../../globals";
-import { guardarSesion } from "../../_auth/utils";
 import "./_style.css";
+import { iniciarSesion } from "./utils";
 
-async function iniciarSesion(
-  correo,
-  contrasenia,
-  setErrCorreo,
-  setErrContrasenia,
-  history
-) {
-  if (!correo) {
-    setErrCorreo("Introduce tu CUM o el correo con el que registraste");
-  }
-
-  if (!contrasenia) {
-    setErrContrasenia("Introduce tu contraseña.");
-  }
-  if (!correo || !contrasenia) {
-    return;
-  }
-
-  const loginForm = {
-    correo: correo,
-    contrasenia: contrasenia,
-  };
-
-  const loginResponse = await axios
-    .post(`${backendURL}/login/`, loginForm)
-    .catch((err) => {
-      const { msg, errCause } = err.response.data;
-      if (errCause && errCause === "Correo") {
-        setErrCorreo(msg);
-      } else if (errCause && errCause === "Contraseña") {
-        setErrContrasenia(msg);
-      }
-      return;
-    });
-  if (!loginResponse) return;
-
-  guardarSesion(loginResponse.data.token);
-  history.goBack();
-}
-
+/**
+ * Formulario del Inicio de Sesión
+ * @window
+ */
 export default function LogIn() {
   const history = useHistory();
 
@@ -54,8 +16,42 @@ export default function LogIn() {
   const [errCorreo, setErrCorreo] = useState("");
   const [errContrasenia, setErrContrasenia] = useState("");
 
+  /**
+   * Valida la información recabada e inicia sesión
+   * @param {String} correo Correo con el que se iniciará sesión
+   * @param {String} contrasenia Contraseña con la que se iniciará sesión
+   * @param {Function} setErrCorreo Marcar error relacionado al correo
+   * @param {Function} setErrContrasenia Marcar error relacionado a la contraseña
+   * @param {*} history Contenedor del historial en el navegador
+   */
+  async function submit() {
+    if (!correo) {
+      setErrCorreo("Introduce tu CUM o el correo con el que registraste");
+    }
+
+    if (!contrasenia) {
+      setErrContrasenia("Introduce tu contraseña.");
+    }
+
+    if (!correo || !contrasenia) {
+      return;
+    }
+
+    const resLogIn = await iniciarSesion(correo, contrasenia).catch((err) => {
+      const { msg, cause } = err.response.data;
+      if (cause === "correo") {
+        setErrCorreo(msg);
+      } else if (cause === "contrasenia") {
+        setErrContrasenia(msg);
+      }
+    });
+    if (!resLogIn) return;
+
+    history.goBack();
+  }
+
   return (
-    <div>
+    <>
       <nav className="navbar navbar-expand-lg navbar-dark">
         <a className="navbar-brand" href="/">
           <img src="/images/mi-agenda-label.svg" alt="home"></img>
@@ -69,13 +65,7 @@ export default function LogIn() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            iniciarSesion(
-              correo,
-              contrasenia,
-              setErrCorreo,
-              setErrContrasenia,
-              history
-            );
+            submit();
           }}
           autoComplete="off"
           className="card"
@@ -118,12 +108,15 @@ export default function LogIn() {
               value="Iniciar sesión"
               className="btn btn-lg btn-primary mt-4 w-100"
             />
-            <a href="/registro" className="btn registro-btn mt-1 w-100">
+            <button
+              className="btn registro-btn mt-1 w-100"
+              onClick={() => history.replace("/registro")}
+            >
               Registrarme
-            </a>
+            </button>
           </div>
         </form>
       </main>
-    </div>
+    </>
   );
 }

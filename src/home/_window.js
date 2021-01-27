@@ -13,9 +13,11 @@ export default function Home() {
     async function setup() {
       const loggedUser = await autenticarToken().catch((err) => {
         console.log(JSON.stringify(err));
-        history.push("/login");
       });
-      if (!loggedUser) return;
+      if (!loggedUser) {
+        history.push("/login");
+        return;
+      }
       setMiembro(loggedUser);
     }
     setup();
