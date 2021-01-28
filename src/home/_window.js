@@ -4,7 +4,7 @@ import { secciones } from "../globals";
 import { autenticarToken } from "../_auth/utils";
 import "./_style.css";
 
-import Header from "../header/_component";
+import Header from "../_header/_component";
 
 export default function Home() {
   const history = useHistory();

@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import "./_style.css";
 import { iniciarSesion } from "./utils";
 
-import Header from "../../header/_component";
+import Header from "../../_header/_component";
 
 /**
  * Formulario del Inicio de Sesión

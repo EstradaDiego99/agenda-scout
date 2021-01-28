@@ -6,7 +6,7 @@ import { secciones, backendURL } from "../../globals";
 import "./_style.css";
 import { iniciarSesion } from "../login/utils";
 
-import Header from "../../header/_component";
+import Header from "../../_header/_component";
 import FormEdad from "./form01_edad";
 import FormInfoPersonal from "./form02_personal-info";
 import FormInfoScout from "./form03_scout-info";
