@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import bcrypt from "bcryptjs";
-import { seccionesNombreConjunto, backendURL } from "../../globals";
+import { secciones, backendURL } from "../../globals";
 import "./_style.css";
 import { iniciarSesion } from "../login/utils";
 
@@ -26,7 +26,7 @@ export default function SignUp() {
   const [fNacimiento, setFNacimiento] = useState(new Date("2000/01/01"));
   const [provincia, setProvincia] = useState("");
   const [grupo, setGrupo] = useState(0);
-  const [seccion, setSeccion] = useState(seccionesNombreConjunto.DEFAULT);
+  const [seccion, setSeccion] = useState(secciones.conjunto.DEFAULT);
 
   const [codigoNuevaProvincia, setCodigoNuevaProvincia] = useState("");
   const [nombreNuevaProvincia, setNombreNuevaProvincia] = useState("");

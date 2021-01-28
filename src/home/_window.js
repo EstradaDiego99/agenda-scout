@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { seccionesNombreConjunto } from "../globals";
+import { secciones } from "../globals";
 import { autenticarToken } from "../_auth/utils";
 import "./_style.css";
 
@@ -36,18 +36,17 @@ export default function Home() {
     );
   }
 
+  const nombreDisplay =
+    miembro.seccion === secciones.conjunto.MANADA
+      ? miembro.nombreSelva
+      : miembro.nombre;
+
   return (
     <div className={miembro.seccion}>
       <Header logoLink="/" showLogout />
 
       <main id="home-component">
-        <h2>
-          Buenas{" "}
-          {miembro.seccion === seccionesNombreConjunto.MANADA
-            ? miembro.nombreSelva
-            : miembro.nombre}
-          !!
-        </h2>
+        <h2>Buenas {nombreDisplay}!!</h2>
         <div className="flex-grow-1" />
         <div className="container">
           <div className="row align-items-center justify-content-center">
