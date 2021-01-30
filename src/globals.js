@@ -1,26 +1,48 @@
 /** Etapas correspondientes a cada sección dentro del programa de formación de jóvenes scouts */
 const secciones = {
-  completo: {
-    DEFAULT: "",
-    MANADA: "Manada de Lobatos",
-    TROPA: "Tropa de Scouts",
-    COMUNIDAD: "Comunidad de Caminantes",
-    CLAN: "Clan de Rovers",
+  default: {
+    indice: 0,
+    individuo: "",
+    conjunto: "",
+    compIndividuo: "",
+    compConjunto: "",
   },
-  conjunto: {
-    DEFAULT: "",
-    MANADA: "manada",
-    TROPA: "tropa",
-    COMUNIDAD: "comunidad",
-    CLAN: "clan",
+  manada: {
+    indice: 0,
+    individuo: "lobato",
+    conjunto: "manada",
+    compIndividuo: "Lobato Scout",
+    compConjunto: "Manada de Lobatos",
   },
-  individuo: {
-    DEFAULT: "",
-    MANADA: "lobato",
-    TROPA: "scout",
-    COMUNIDAD: "caminante",
-    CLAN: "rover",
+  tropa: {
+    indice: 0,
+    individuo: "scout",
+    conjunto: "tropa",
+    compIndividuo: "Tropero Scout",
+    compConjunto: "Tropa de Scouts",
   },
+  comunidad: {
+    indice: 0,
+    individuo: "caminante",
+    conjunto: "comunidad",
+    compIndividuo: "Caminante Scout",
+    compConjunto: "Comunidad de Caminantes",
+  },
+  clan: {
+    indice: 0,
+    individuo: "rover",
+    conjunto: "clan",
+    compIndividuo: "Rover Scout",
+    compConjunto: "Clan de Rovers",
+  },
+};
+
+/** ENUM correspondiente al nombre interno de las secciones en la base de datos */
+const seccionesENUM = {
+  MANADA: "manada",
+  TROPA: "tropa",
+  COMUNIDAD: "comunidad",
+  CLAN: "clan",
 };
 
 const backendURL =
@@ -28,4 +50,4 @@ const backendURL =
     ? "https://agenda-scout.herokuapp.com/api"
     : "http://localhost:5000/api";
 
-export { secciones, backendURL };
+export { secciones, seccionesENUM, backendURL };

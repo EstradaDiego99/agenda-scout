@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { es } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
-import { secciones } from "../../globals";
+import { seccionesENUM } from "../../globals";
 
 export default function FormEdad({
   setEtapaRegistro,
@@ -15,12 +15,12 @@ export default function FormEdad({
 
   function submit() {
     if (errNoSeccion) return;
-    if (seccion === secciones.conjunto.DEFAULT) {
+    if (!seccion) {
       setErrNoSeccion(true);
       return;
     }
 
-    if (seccion === secciones.conjunto.MANADA) {
+    if (seccion === seccionesENUM.MANADA) {
       alert(
         "Recuerda llenar este formulario en conjunto con un adulto responsable."
       );
@@ -63,7 +63,7 @@ export default function FormEdad({
               src="/images/icon-lobato.svg"
               alt="icono lobato"
               onClick={() => {
-                setSeccion(secciones.conjunto.MANADA);
+                setSeccion(seccionesENUM.MANADA);
                 setErrNoSeccion(false);
               }}
             />
@@ -72,7 +72,7 @@ export default function FormEdad({
               src="/images/icon-scout.svg"
               alt="icono scout"
               onClick={() => {
-                setSeccion(secciones.conjunto.TROPA);
+                setSeccion(seccionesENUM.TROPA);
                 setErrNoSeccion(false);
               }}
             />
@@ -81,7 +81,7 @@ export default function FormEdad({
               src="/images/icon-caminante.svg"
               alt="icono caminante"
               onClick={() => {
-                setSeccion(secciones.conjunto.COMUNIDAD);
+                setSeccion(seccionesENUM.COMUNIDAD);
                 setErrNoSeccion(false);
               }}
             />
@@ -90,12 +90,12 @@ export default function FormEdad({
               src="/images/icon-rover.svg"
               alt="icono rover"
               onClick={() => {
-                setSeccion(secciones.conjunto.CLAN);
+                setSeccion(seccionesENUM.CLAN);
                 setErrNoSeccion(false);
               }}
             />
           </div>
-          {seccion === secciones.conjunto.MANADA && (
+          {seccion === seccionesENUM.MANADA && (
             <div id="consentimiento-container" className="mt-1">
               <small>
                 Se debe contar con un adulto responsable al momento de llenar
