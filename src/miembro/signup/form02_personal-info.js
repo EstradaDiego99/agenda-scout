@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { seccionesENUM } from "../../globals";
+import { secciones } from "../../globals";
 
 export default function FormInfoPersonal({
   setEtapaRegistro,
@@ -28,7 +28,7 @@ export default function FormInfoPersonal({
       setErrApellido("El apellido no puede estar vacío.");
     }
 
-    if (seccion === seccionesENUM.MANADA && !nombreSelva.length) {
+    if (seccion === secciones.MANADA && !nombreSelva.length) {
       incompleteForm = true;
       setErrNombreSelva("Por favor menciona cuál es tu nombre de selva.");
     }
@@ -72,7 +72,7 @@ export default function FormInfoPersonal({
           />
           <small className="text-danger">{errApellido}</small>
         </div>
-        {seccion === seccionesENUM.MANADA && (
+        {seccion === secciones.MANADA && (
           <div className="form-group">
             <p className="mb-4 text-info">
               Tu nombre real no será mostrado a nadie mas que a tu Akela y

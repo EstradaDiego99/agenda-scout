@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { seccionesENUM } from "../globals";
+import { secciones } from "../globals";
 import { autenticarToken } from "../_auth/utils";
 import "./_style.css";
 
@@ -37,9 +37,7 @@ export default function Home() {
   }
 
   const nombreDisplay =
-    miembro.seccion === seccionesENUM.MANADA
-      ? miembro.nombreSelva
-      : miembro.nombre;
+    miembro.seccion === secciones.MANADA ? miembro.nombreSelva : miembro.nombre;
 
   return (
     <div className={miembro.seccion}>
