@@ -8,8 +8,8 @@ h2 {
 }
 
 .home-icon {
-  -webkit-mask: url(../mi-agenda-label.svg) no-repeat center;
-  mask: url(../mi-agenda-label.svg) no-repeat center;
+  -webkit-mask: url(../logo.svg) no-repeat center;
+  mask: url(../logo.svg) no-repeat center;
   min-height: 136px;
 }
 

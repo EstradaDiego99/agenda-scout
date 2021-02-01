@@ -4,6 +4,7 @@ import { secciones } from "../globals";
 import { autenticarToken } from "../_auth/utils";
 import "./_style.css";
 
+import logo from "../logo.svg";
 import Header from "../_header/_component";
 
 export default function Home() {
@@ -29,7 +30,7 @@ export default function Home() {
     return (
       <div className="d-flex justify-content-center align-items-center">
         <div>
-          <img src="/images/mi-agenda-label.svg" alt="icon"></img>
+          <img src={logo} alt="icon"></img>
           <p className="mt-4">Cargando información...</p>
         </div>
       </div>
@@ -48,11 +49,7 @@ export default function Home() {
         <div className="flex-grow-1" />
         <div className="container">
           <div className="row align-items-center justify-content-center">
-            <div
-              src="/images/mi-agenda-label.svg"
-              alt="icono"
-              className="home-icon col-10 col-md-6"
-            />
+            <div src={logo} alt="icono" className="home-icon col-10 col-md-6" />
             <small className="col-12 col-md-6 mt-4">
               Holi, aún no hemos programado nada aquí, jeje.
               <br />

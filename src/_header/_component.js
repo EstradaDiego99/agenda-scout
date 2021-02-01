@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { borrarSesion } from "../_auth/utils";
-import logo from "../mi-agenda-label.svg";
+import logo from "../logo.svg";
 import "./_style.css";
 
 /**
