@@ -13,9 +13,9 @@ async function autenticarToken() {
   return loggedMiembro.data;
 }
 
-/** Guardar una cookie dado un token para recordar la sesión en el dispositivo */
+/** Guardar cookie para recordar la sesión en el dispositivo durante un año */
 function guardarSesion(token) {
-  Cookies.set("cum_token", token);
+  Cookies.set("cum_token", token, { expires: 365 });
 }
 
 /** Remover las cookies del navegador para desconectar al usuario en el dispositivo */
