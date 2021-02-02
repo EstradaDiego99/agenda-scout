@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { es } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
-import { secciones } from "../../globals";
+
+import { seccionesENUM } from "../../_utils/secciones";
+const { MANADA, TROPA, COMUNIDAD, CLAN } = seccionesENUM;
 
 export default function FormEdad({
   setEtapaRegistro,
@@ -20,7 +22,7 @@ export default function FormEdad({
       return;
     }
 
-    if (seccion === secciones.MANADA) {
+    if (seccion === MANADA) {
       alert(
         "Recuerda llenar este formulario en conjunto con un adulto responsable."
       );
@@ -63,7 +65,7 @@ export default function FormEdad({
               src="/images/icon-lobato.svg"
               alt="icono lobato"
               onClick={() => {
-                setSeccion(secciones.MANADA);
+                setSeccion(MANADA);
                 setErrNoSeccion(false);
               }}
             />
@@ -72,7 +74,7 @@ export default function FormEdad({
               src="/images/icon-scout.svg"
               alt="icono scout"
               onClick={() => {
-                setSeccion(secciones.TROPA);
+                setSeccion(TROPA);
                 setErrNoSeccion(false);
               }}
             />
@@ -81,7 +83,7 @@ export default function FormEdad({
               src="/images/icon-caminante.svg"
               alt="icono caminante"
               onClick={() => {
-                setSeccion(secciones.COMUNIDAD);
+                setSeccion(COMUNIDAD);
                 setErrNoSeccion(false);
               }}
             />
@@ -90,12 +92,12 @@ export default function FormEdad({
               src="/images/icon-rover.svg"
               alt="icono rover"
               onClick={() => {
-                setSeccion(secciones.CLAN);
+                setSeccion(CLAN);
                 setErrNoSeccion(false);
               }}
             />
           </div>
-          {seccion === secciones.MANADA && (
+          {seccion === MANADA && (
             <div id="consentimiento-container" className="mt-1">
               <small>
                 Se debe contar con un adulto responsable al momento de llenar
