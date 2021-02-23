@@ -1,5 +1,5 @@
 const { Schema } = require("mongoose");
-const { Miembro } = require("./miembro.model");
+const Miembro = require("../_model");
 
 const scouterSchema = new Schema(
   {

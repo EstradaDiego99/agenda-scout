@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const flatten = require("flat");
-const { Miembro } = require("./_model");
+const Miembro = require("./_model");
 
 // CREATE
 router.post("/", (req, res) => {
@@ -9,19 +9,11 @@ router.post("/", (req, res) => {
     .save()
     .then(() => res.json("Se ha registrado nuevo miembro!"))
     .catch((err) => {
-      console.log(err);
-      if (err.code === 11000) {
-        res.status(400).json({
-          msg: "Hubo un error al registrar miembro",
-          error: err,
-          repeatedKey: Object.keys(err.keyValue),
-        });
-        return;
+      const errors = {};
+      for (const [key, obj] of Object.entries(err.errors || {})) {
+        errors[key] = obj.properties.message;
       }
-      res.status(400).json({
-        msg: "Hubo un error al registrar miembro",
-        error: err,
-      });
+      res.status(400).json(errors);
     });
 });
 

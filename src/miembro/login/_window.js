@@ -6,7 +6,7 @@ import { iniciarSesion } from "./utils";
 import Header from "../../_header/_component";
 
 /**
- * Formulario del Inicio de Sesión
+ * Formulario de Inicio de Sesión
  * @window
  */
 export default function LogIn() {
@@ -18,34 +18,11 @@ export default function LogIn() {
   const [errCorreo, setErrCorreo] = useState("");
   const [errContrasenia, setErrContrasenia] = useState("");
 
-  /**
-   * Valida la información recabada e inicia sesión
-   * @param {String} correo Correo con el que se iniciará sesión
-   * @param {String} contrasenia Contraseña con la que se iniciará sesión
-   * @param {Function} setErrCorreo Marcar error relacionado al correo
-   * @param {Function} setErrContrasenia Marcar error relacionado a la contraseña
-   * @param {*} history Contenedor del historial en el navegador
-   */
   async function submit() {
-    if (!correo) {
-      setErrCorreo("Introduce tu CUM o el correo con el que registraste");
-    }
-
-    if (!contrasenia) {
-      setErrContrasenia("Introduce tu contraseña.");
-    }
-
-    if (!correo || !contrasenia) {
-      return;
-    }
-
     const resLogIn = await iniciarSesion(correo, contrasenia).catch((err) => {
-      const { msg, cause } = err.response.data;
-      if (cause === "correo") {
-        setErrCorreo(msg);
-      } else if (cause === "contrasenia") {
-        setErrContrasenia(msg);
-      }
+      const { errCorreo = "", errContrasenia = "" } = err.response.data;
+      setErrCorreo(errCorreo);
+      setErrContrasenia(errContrasenia);
     });
     if (!resLogIn) return;
 
