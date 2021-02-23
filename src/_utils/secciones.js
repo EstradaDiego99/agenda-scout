@@ -10,6 +10,15 @@ import distCoordinador from "../_img/03_comunidad/distintivo_03-coordinador.svg"
 import distClan from "../_img/04_clan/distintivo-seccion_rover.svg";
 import distPromotor from "../_img/04_clan/distintivo-seccion_promotor-rover.svg";
 
+import iconMSeccion from "../_img/01_manada/insignia-final_seccion.svg";
+import iconTSeccion from "../_img/02_tropa/insignia-final_seccion.svg";
+import iconCSeccion from "../_img/03_comunidad/insignia-final_seccion.svg";
+import iconRSeccion from "../_img/04_clan/insignia-final_seccion.svg";
+import iconMIDO from "../_img/01_manada/insignia-final_desarrollo-optimo.svg";
+import iconTIDO from "../_img/02_tropa/insignia-final_desarrollo-optimo.svg";
+import iconCIDO from "../_img/03_comunidad/insignia-final_desarrollo-optimo.svg";
+import iconRIDO from "../_img/04_clan/insignia-final_terminal.svg";
+
 /** Etapas correspondientes a cada sección dentro del programa de formación de jóvenes scouts */
 const secciones = {
   default: {
@@ -31,18 +40,22 @@ const secciones = {
       subseisenero: distSubseisenero,
       seisenero: distSeisenero,
     },
+    imgInsigniaSeccion: iconMSeccion,
+    imgIDO: iconMIDO,
   },
   tropa: {
     indice: 2,
     individuo: "scout",
     conjunto: "tropa",
-    compIndividuo: "Tropero Scout",
+    compIndividuo: "Troperx Scout",
     compConjunto: "Tropa de Scouts",
     imgDistintivos: {
       scout: distTropa,
       subguia: distSubguia,
       guia: distGuia,
     },
+    imgInsigniaSeccion: iconTSeccion,
+    imgIDO: iconTIDO,
   },
   comunidad: {
     indice: 3,
@@ -55,6 +68,8 @@ const secciones = {
       subcoordinador: distSubcoordinador,
       coordinador: distCoordinador,
     },
+    imgInsigniaSeccion: iconCSeccion,
+    imgIDO: iconCIDO,
   },
   clan: {
     indice: 4,
@@ -66,6 +81,8 @@ const secciones = {
       rover: distClan,
       promotor: distPromotor,
     },
+    imgInsigniaSeccion: iconRSeccion,
+    imgIDO: iconRIDO,
   },
 };
 

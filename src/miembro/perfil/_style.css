@@ -1,0 +1,267 @@
+.greyscale {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+#miembro-perfil {
+  align-items: center;
+}
+
+#miembro-perfil section {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #6c757d;
+  box-shadow: 0px 12px 4px -6px #00000030;
+}
+
+.datos-container {
+  flex-grow: 1;
+  text-align: center;
+}
+
+#secciones-container > img {
+  width: 24%;
+  margin: 0.1em;
+  cursor: pointer;
+}
+
+.distintivo-secccion {
+  height: 3.75em;
+  -webkit-box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 50%);
+  -moz-box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 50%);
+  box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 50%);
+}
+
+form.manada img:not(.btn-manada) {
+  opacity: 0.5;
+}
+
+form.tropa img:not(.btn-tropa) {
+  opacity: 0.5;
+}
+
+form.comunidad img:not(.btn-comunidad) {
+  opacity: 0.5;
+}
+
+form.clan img:not(.btn-clan) {
+  opacity: 0.5;
+}
+
+.manada > section .seccLabel {
+  color: var(--manada-oscuro);
+}
+
+.tropa > section .seccLabel {
+  color: var(--tropa-oscuro);
+}
+
+.comunidad > section .seccLabel {
+  color: var(--comunidad-oscuro);
+}
+
+.clan > section .seccLabel {
+  color: var(--clan-oscuro);
+}
+
+.cinta-provincia {
+  background-color: var(--asmac-oscuro);
+  border: 4px solid white;
+  line-height: 1.25em;
+  font-stretch: condensed;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.logo-grupo {
+  margin: 0.25em;
+  background-color: var(--asmac-oscuro);
+  border: 2px solid white;
+  min-height: 3em;
+}
+
+.cinta-grupo {
+  background-color: var(--asmac-oscuro);
+  border: 4px solid white;
+  line-height: 1.25em;
+  width: 2em;
+  font-stretch: condensed;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+.ido-container > * {
+  width: 24%;
+}
+
+.ido-container img {
+  cursor: pointer;
+}
+
+.edit-button {
+  display: flex;
+  background-color: #00000030;
+  color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  margin: 4px auto;
+  flex-grow: 1;
+}
+
+.edit-button i {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 1.5rem;
+  height: 1em;
+  width: auto;
+}
+
+.insignias-manga-container {
+  margin-bottom: 1em;
+}
+
+.insignias-manga-container .progresion {
+  width: 30%;
+  left: 50%;
+}
+
+.insignias-manga-container .especialidad,
+.insignias-manga-container .competencias {
+  width: 20%;
+}
+
+.insignias-manga-container .IVAL {
+  width: 30%;
+}
+
+.especialidades-container {
+  padding-top: 75%;
+  position: relative;
+  margin-bottom: 0.5em;
+}
+
+.especialidades-container > * {
+  padding: 0;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.especialidades-container .progresion {
+  top: 45%;
+  left: 50%;
+}
+
+.especialidades-container .deportes {
+  top: 20%;
+  left: 20%;
+}
+
+.especialidades-container .ecologia {
+  top: 45%;
+  left: 10%;
+}
+
+.especialidades-container .expresion {
+  top: 70%;
+  left: 20%;
+}
+
+.especialidades-container .humanidades {
+  top: 20%;
+  left: 80%;
+}
+
+.especialidades-container .seguridad {
+  top: 45%;
+  left: 90%;
+}
+
+.especialidades-container .tecnologia {
+  top: 70%;
+  left: 80%;
+}
+
+.especialidades-container .IVAL {
+  top: 85%;
+  left: 50%;
+}
+
+.ids-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.ids-container > * {
+  width: 30%;
+  padding: 0;
+}
+
+.insignias-manga-container.comunidad .ids-container {
+  padding-top: 30%;
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.insignias-manga-container.comunidad .ids-container > * {
+  width: 25%;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.insignias-manga-container.comunidad .ids-container > .ambiente {
+  top: 27%;
+  left: 50%;
+}
+
+.insignias-manga-container.comunidad .ids-container > .desarrollo {
+  top: 37%;
+  left: 44%;
+  transform: rotate(119deg);
+}
+
+.insignias-manga-container.comunidad .ids-container > .paz {
+  top: 38%;
+  left: 32%;
+  transform: rotate(-121deg);
+}
+
+.insignias-manga-container.clan .progresion {
+  left: 50%;
+}
+
+.insignias-manga-container.clan .competencias-container {
+  padding-top: 40%;
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.insignias-manga-container.clan .competencias-container > * {
+  padding: 0;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+}
+
+.insignias-manga-container.clan .competencias-container > .competencias {
+  left: 22%;
+}
+
+.insignias-manga-container.clan .competencias-container > .IVAL {
+  left: 82%;
+}
+
+.insignias-mundiales-container > * {
+  width: 30%;
+  margin: 0 0.25em;
+}
+
+.insignias-mundiales-container:not(.edit-mode) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem !important;
+}

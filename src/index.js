@@ -7,6 +7,7 @@ import "./index.css";
 const Home = lazy(() => import("./home/_window"));
 const SignUp = lazy(() => import("./miembro/signup/_window"));
 const LogIn = lazy(() => import("./miembro/login/_window"));
+const Miembro = lazy(() => import("./miembro/_window"));
 
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 let vh = window.innerHeight * 0.01;
@@ -28,6 +29,8 @@ ReactDOM.render(
           <Route path="/" exact component={Home} />
           <Route path="/registro" exact component={SignUp} />
           <Route path="/login" exact component={LogIn} />
+
+          <Route path="/:CUM" component={Miembro} />
         </Switch>
       </Suspense>
     </StrictMode>

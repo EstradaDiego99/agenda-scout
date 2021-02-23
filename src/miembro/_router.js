@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const flatten = require("flat");
 const { Miembro } = require("./_model");
 
 // CREATE
@@ -39,13 +40,13 @@ router.route("/:CUM").get((req, res) => {
 
 // UPDATE
 router.route("/:CUM").post((req, res) => {
-  Miembro.findOneAndUpdate({ CUM: req.params.CUM }, req.body, {
+  Miembro.updateOne({ CUM: req.params.CUM }, flatten(req.body), {
     //options
     returnNewDocument: true,
     new: true,
     strict: false,
   })
-    .then(() => res.json("Miembros ha sido actualizado!"))
+    .then(() => res.json("Miembro ha sido actualizado!"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 

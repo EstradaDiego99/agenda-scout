@@ -2,6 +2,86 @@
   "CUM": "BCS9428767",
   "nombre": "Ángel Alexander",
   "apellido": "Rivas Jiménez",
-  "fechaNacimiento": "2000-03-10",
-  "fechaRegistro": "2009-05-31"
+  "fNacimiento": "2000-03-10",
+  "fRegistro": "2009-05-31",
+  "seccion": "clan",
+  "historial": {
+    "manada": {
+      "cargo": "subseisenero",
+      "progesion": 4,
+      "especialidades": {
+        "deportes": 1,
+        "ecologia": 1,
+        "expresion": 1,
+        "humanidades": 1,
+        "seguridad": 1,
+        "tecnologia": 1
+      },
+      "IVAL": 2,
+      "IDSs": {
+        "ambiente": true,
+        "desarrollo": false,
+        "paz": true
+      },
+      "enlace": true,
+      "IDO": 1
+    },
+    "tropa": {
+      "cargo": "guia",
+      "progesion": 4,
+      "especialidades": {
+        "deportes": 1,
+        "ecologia": 1,
+        "expresion": 1,
+        "humanidades": 1,
+        "seguridad": 1,
+        "tecnologia": 1
+      },
+      "IVAL": 2,
+      "IDSs": {
+        "ambiente": true,
+        "desarrollo": false,
+        "paz": true
+      },
+      "enlace": 1,
+      "IDO": 2
+    },
+    "comunidad": {
+      "cargo": "coordinador",
+      "liderProyecto": 1,
+      "progesion": 4,
+      "especialidades": {
+        "deportes": 1,
+        "ecologia": 1,
+        "expresion": 1,
+        "humanidades": 1,
+        "seguridad": 1,
+        "tecnologia": 1
+      },
+      "IVAL": 2,
+      "IDSs": {
+        "ambiente": true,
+        "desarrollo": false,
+        "paz": true
+      },
+      "enlace": 1,
+      "IDO": 2
+    },
+    "clan": {
+      "cargo": "promotor",
+      "liderProyecto": true,
+      "progesion": 4,
+      "competencias": 2,
+      "IVAL": 2,
+      "enlace": false,
+      "IDO": 0
+    },
+    "ismma": {
+      "manada": true,
+      "tropa": false,
+      "ramaMayor": true
+    },
+    "scoutsDelMundo": false,
+    "mensajerosPaz": false
+  }
 }

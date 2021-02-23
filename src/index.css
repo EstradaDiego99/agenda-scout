@@ -23,6 +23,7 @@
 body {
   height: 100vh;
   min-height: 100vh;
+  line-height: normal;
 }
 
 a {
@@ -36,6 +37,10 @@ a:hover {
 button {
   background-color: transparent;
   border: none;
+}
+
+p {
+  margin-bottom: unset;
 }
 
 #root {
@@ -109,6 +114,10 @@ main {
 
 footer {
   height: 32px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 768px) {
