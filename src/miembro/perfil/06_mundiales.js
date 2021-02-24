@@ -111,8 +111,13 @@ export default function InsigniasMundiales({
     ),
   };
 
-  const noISMMA = !ismmaManada && !ismmaTropa && !ismmaRamaMayor;
-  const noData = !noISMMA && !scoutsDelMundo && !mensajerosPaz;
+  const ismmaBoolMap = {
+    [MANADA]: ismmaManada,
+    [TROPA]: ismmaTropa,
+    [COMUNIDAD]: ismmaRamaMayor,
+    [CLAN]: ismmaRamaMayor,
+  };
+  const noData = !ismmaBoolMap[seccion] && !scoutsDelMundo && !mensajerosPaz;
 
   if (noData) {
     if (!selfProfile) return <></>;
