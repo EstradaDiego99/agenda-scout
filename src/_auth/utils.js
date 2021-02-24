@@ -7,10 +7,9 @@ async function autenticarToken() {
   const authResponse = await axios.post(`${backendURL}/authenticate/`, {
     token: Cookies.get("cum_token"),
   });
-  const loggedCUM = authResponse.data.jwtVerification.CUM;
-  const loggedMiembro = await axios.get(`${backendURL}/miembros/${loggedCUM}`);
-
-  return loggedMiembro.data;
+  const { CUM } = authResponse.data.jwtVerification;
+  const { data } = await axios.get(`${backendURL}/miembros/${CUM}`);
+  return data;
 }
 
 /** Guardar cookie para recordar la sesión en el dispositivo durante un año */

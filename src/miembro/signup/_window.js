@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import bcrypt from "bcryptjs";
 import { backendURL } from "../../globals";
 import "./_style.css";
 import { iniciarSesion } from "../login/utils";
@@ -34,19 +33,17 @@ export default function SignUp() {
   const [nombreNuevoGrupo, setNombreNuevoGrupo] = useState("");
 
   async function registrarMiembro() {
-    const contraseniaHash = await bcrypt.hash(contrasenia, 10);
-
     const nuevoMiembro = {
-      CUM: CUM,
-      nombre: nombre,
-      apellido: apellido,
-      nombreSelva: nombreSelva,
-      correo: correo,
-      contrasenia: contraseniaHash,
-      fNacimiento: fNacimiento,
+      CUM,
+      nombre,
+      apellido,
+      nombreSelva,
+      correo,
+      contrasenia,
+      fNacimiento,
+      seccion,
       provincia: provincia === "inexistente" ? codigoNuevaProvincia : provincia,
       grupo: grupo < 0 ? numeroNuevoGrupo : grupo,
-      seccion: seccion,
     };
 
     if (nombreNuevaProvincia) {

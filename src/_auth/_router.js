@@ -4,17 +4,12 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 router.route("/").post(async (req, res) => {
+  const { token } = req.body;
+  if (!token) return res.status(410).json({ msg: "Token no existente" });
   try {
-    const { token } = req.body;
-    if (!token) {
-      res.status(410).json({ msg: "Token no existente." });
-      return;
-    }
-
-    const jwtVerification = await jwt.verify(token, process.env.JWT_SECRET);
-    res.json({ jwtVerification: jwtVerification });
+    const jwtVerification = jwt.verify(token, process.env.JWT_SECRET);
+    res.json({ jwtVerification });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: err.message });
   }
 });

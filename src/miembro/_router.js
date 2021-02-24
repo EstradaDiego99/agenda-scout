@@ -1,10 +1,14 @@
 const router = require("express").Router();
 const flatten = require("flat");
+const bcrypt = require("bcryptjs");
 const Miembro = require("./_model");
 
 // CREATE
 router.post("/", (req, res) => {
-  const nuevoMiembro = new Miembro(req.body);
+  const data = req.body || {};
+  if (data.contrasenia)
+    data.contrasenia = bcrypt.hashSync(data.contrasenia, 10);
+  const nuevoMiembro = new Miembro(data);
   nuevoMiembro
     .save()
     .then(() => res.json("Se ha registrado nuevo miembro!"))
@@ -13,7 +17,7 @@ router.post("/", (req, res) => {
       for (const [key, obj] of Object.entries(err.errors || {})) {
         errors[key] = obj.properties.message;
       }
-      res.status(400).json(errors);
+      return res.status(400).json(errors);
     });
 });
 
