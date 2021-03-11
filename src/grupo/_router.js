@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Grupo } = require("./_model");
+const Grupo = require("./_model");
 
 // CREATE
 router.route("/").post((req, res) => {

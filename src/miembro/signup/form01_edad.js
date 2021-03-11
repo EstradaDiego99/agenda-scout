@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import axios from "axios";
+import { backendURL } from "../../globals";
 import { es } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -13,20 +15,23 @@ export default function FormEdad({
   seccion,
   setSeccion,
 }) {
-  const [errNoSeccion, setErrNoSeccion] = useState(false);
+  const [errNoSeccion, setErrNoSeccion] = useState("");
 
-  function submit() {
-    if (errNoSeccion) return;
-    if (!seccion) {
-      setErrNoSeccion(true);
+  async function submit() {
+    const validationData = { fNacimiento, seccion };
+    const resValidation = await axios
+      .post(`${backendURL}/signup/validate-form01`, validationData)
+      .catch((err) => err);
+    if (resValidation instanceof Error) {
+      const errData = resValidation.response.data;
+      setErrNoSeccion(errData.seccion || "");
       return;
     }
 
-    if (seccion === MANADA) {
+    if (seccion === MANADA)
       alert(
         "Recuerda llenar este formulario en conjunto con un adulto responsable."
       );
-    }
 
     setEtapaRegistro((etapa) => etapa + 1);
   }
@@ -54,9 +59,7 @@ export default function FormEdad({
           </label>
           {errNoSeccion && (
             <div>
-              <small className="text-danger">
-                Es necesario seleccionar la sección a la que perteneces.
-              </small>
+              <small className="text-danger">{errNoSeccion}</small>
             </div>
           )}
           <div id="secciones-container" className="d-flex">

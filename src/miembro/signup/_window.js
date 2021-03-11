@@ -33,7 +33,7 @@ export default function SignUp() {
   const [nombreNuevoGrupo, setNombreNuevoGrupo] = useState("");
 
   async function registrarMiembro() {
-    const nuevoMiembro = {
+    const signupData = {
       CUM,
       nombre,
       apellido,
@@ -42,50 +42,25 @@ export default function SignUp() {
       contrasenia,
       fNacimiento,
       seccion,
-      provincia: provincia === "inexistente" ? codigoNuevaProvincia : provincia,
-      grupo: grupo < 0 ? numeroNuevoGrupo : grupo,
+      provincia,
+      grupo,
+      nuevaProvincia: {
+        codigo: codigoNuevaProvincia || null,
+        nombre: nombreNuevaProvincia || null,
+      },
+      nuevoGrupo: {
+        numero: numeroNuevoGrupo || null,
+        nombre: nombreNuevoGrupo || null,
+      },
     };
-
-    if (nombreNuevaProvincia) {
-      const resProvincia = await axios
-        .post(`${backendURL}/provincias/`, {
-          codigo: codigoNuevaProvincia,
-          nombre: nombreNuevaProvincia,
-        })
-        .catch((err) => {
-          const { msg, error } = err.response.data;
-          alert(msg);
-          console.log(error);
-        });
-      if (!resProvincia) return;
-    }
-
-    if (nombreNuevoGrupo) {
-      const resNuevoGrupo = await axios
-        .post(`${backendURL}/grupos/`, {
-          provincia:
-            provincia === "inexistente" ? codigoNuevaProvincia : provincia,
-          numero: numeroNuevoGrupo,
-          nombre: nombreNuevoGrupo,
-        })
-        .catch((err) => {
-          const { msg, error } = err.response.data;
-          alert(msg);
-          console.log(error);
-        });
-      if (!resNuevoGrupo) return;
-    }
-
     const resMiembro = await axios
-      .post(`${backendURL}/miembros/`, nuevoMiembro)
-      .catch((err) => {
-        const { msg, error, repeatedKey } = err.response.data;
-        console.log(error);
-        alert(msg);
-        if (repeatedKey && repeatedKey === "CUM") setEtapaRegistro(2);
-        else if (repeatedKey && repeatedKey === "correo") setEtapaRegistro(4);
-      });
-    if (!resMiembro) return;
+      .post(`${backendURL}/signup/`, signupData)
+      .catch((err) => err);
+    if (resMiembro instanceof Error) {
+      const { msg } = resMiembro.response.data;
+      alert(msg);
+      return;
+    }
 
     setEtapaRegistro((etapa) => etapa + 1);
   }

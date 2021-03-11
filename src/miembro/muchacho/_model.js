@@ -1,6 +1,6 @@
 const { Schema } = require("mongoose");
-const { Provincia } = require("../../models/provincia.model");
-const { Grupo } = require("../../grupo/grupo.model");
+const Provincia = require("../../models/provincia.model");
+const Grupo = require("../../grupo/grupo.model");
 const Miembro = require("../_model");
 
 const muchachoSchema = new Schema(

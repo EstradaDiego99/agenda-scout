@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { backendURL } from "../../globals";
 
 import { seccionesENUM } from "../../_utils/secciones";
 const { MANADA } = seccionesENUM;
@@ -17,25 +19,16 @@ export default function FormInfoPersonal({
   const [errApellido, setErrApellido] = useState("");
   const [errNombreSelva, setErrNombreSelva] = useState("");
 
-  function submit() {
-    let incompleteForm = false;
-
-    if (!nombre.length) {
-      incompleteForm = true;
-      setErrNombre("El nombre no puede estar vacío.");
-    }
-
-    if (!apellido.length) {
-      incompleteForm = true;
-      setErrApellido("El apellido no puede estar vacío.");
-    }
-
-    if (seccion === MANADA && !nombreSelva.length) {
-      incompleteForm = true;
-      setErrNombreSelva("Por favor menciona cuál es tu nombre de selva.");
-    }
-
-    if (incompleteForm) {
+  async function submit() {
+    const validationData = { nombre, apellido, nombreSelva, seccion };
+    const resValidation = await axios
+      .post(`${backendURL}/signup/validate-form02`, validationData)
+      .catch((err) => err);
+    if (resValidation instanceof Error) {
+      const errData = resValidation.response.data;
+      setErrNombre(errData.nombre || "");
+      setErrApellido(errData.apellido || "");
+      setErrNombreSelva(errData.nombreSelva || "");
       return;
     }
 

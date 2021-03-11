@@ -19,7 +19,6 @@ export default function FormInfoScout({
   nombreNuevoGrupo,
   setNombreNuevoGrupo,
 }) {
-  const [listaCUMs, setListaCUMs] = useState([]);
   const [listaProvincias, setListaProvincias] = useState([]);
   const [listaGrupos, setListaGrupos] = useState([]);
 
@@ -29,122 +28,81 @@ export default function FormInfoScout({
 
   useEffect(() => {
     async function setup() {
-      const resProvincias = await axios
-        .get(`${backendURL}/provincias/`)
-        .catch((err) => console.log(JSON.stringify(err)));
-      if (resProvincias.data.length > 0) {
-        resProvincias.data.sort((a, b) =>
-          a.codigo > b.codigo ? 1 : b.codigo > a.codigo ? -1 : 0
-        );
-        setListaProvincias(resProvincias.data);
-      }
-
-      const resGrupos = await axios
-        .get(`${backendURL}/grupos/`)
-        .catch((err) => console.log(JSON.stringify(err)));
-      if (resGrupos.data.length > 0) {
-        resGrupos.data.sort((a, b) =>
-          a.numero > b.numero ? 1 : b.numero > a.numero ? -1 : 0
-        );
-        setListaGrupos(resGrupos.data);
-      }
-
-      const resMiembros = await axios
-        .get(`${backendURL}/miembros/`)
-        .catch((err) => console.log(JSON.stringify(err)));
-      if (resMiembros.data.length > 0) {
-        setListaCUMs(resMiembros.data.map((m) => m.CUM));
-      }
+      const resLista = await axios
+        .get(`${backendURL}/signup/lista-provincias-grupos`)
+        .catch((err) => err);
+      if (resLista instanceof Error) return console.log(resLista.response.data);
+      setListaProvincias(resLista.data.provincias);
+      setListaGrupos(resLista.data.grupos);
     }
     setup();
   }, []);
 
-  function submit() {
-    let incompleteForm = false;
+  async function submit() {
+    let foundError = false;
 
-    if (!RegExp("[A-Z0-9]{3}[0-9]{7}").test(CUM)) {
-      incompleteForm = true;
-      setErrCUM(`
-        CUM debe cumplir con el formato correcto. Es un código de
-        10 caracteres, los últimos 7 de ellos todos números.
-      `);
+    const miembroValData = { CUM };
+    const resValidationMiembro = await axios
+      .post(`${backendURL}/signup/validate-form03-miembro`, miembroValData)
+      .catch((err) => err);
+    if (resValidationMiembro instanceof Error) {
+      const errData = resValidationMiembro.response.data;
+      setErrCUM(errData.CUM || "");
+      foundError = true;
     }
 
-    if (listaCUMs.includes(CUM)) {
-      incompleteForm = true;
-      setErrCUM(`
-        Este CUM ya se encuentra registrado. ¿No querrás iniciar sesión?
-      `);
+    const provinciaValData = {
+      provincia,
+      nuevaProvincia: {
+        codigo: codigoNuevaProvincia,
+        nombre: nombreNuevaProvincia,
+      },
+    };
+    const resValidationProvincia = await axios
+      .post(`${backendURL}/signup/validate-form03-provincia`, provinciaValData)
+      .catch((err) => err);
+    if (resValidationProvincia instanceof Error) {
+      setErrProvincia(resValidationProvincia.response.data);
+      foundError = true;
     }
 
-    if (!provincia) {
-      incompleteForm = true;
-      setErrProvincia(`
-        Se debe seleccionar una provincia o introducir el código y nombre de una
-        nueva provincia.
-      `);
+    const currProvincia =
+      provincia === "NULL" ? codigoNuevaProvincia : provincia;
+    const grupoValData = {
+      provincia: currProvincia,
+      grupo: grupo,
+      nuevoGrupo: {
+        provincia: currProvincia,
+        numero: numeroNuevoGrupo || null,
+        nombre: nombreNuevoGrupo || null,
+      },
+    };
+    const resValidationGrupo = await axios
+      .post(`${backendURL}/signup/validate-form03-grupo`, grupoValData)
+      .catch((err) => err);
+    if (resValidationGrupo instanceof Error) {
+      setErrGrupo(resValidationGrupo.response.data);
+      foundError = true;
     }
 
-    if (
-      provincia === "inexistente" &&
-      (!codigoNuevaProvincia || !nombreNuevaProvincia)
-    ) {
-      incompleteForm = true;
-      setErrProvincia(`
-        Se debe seleccionar una provincia o introducir el código y nombre de una
-        nueva provincia.
-      `);
-    }
-
-    if (
-      provincia === "inexistente" &&
-      listaProvincias.includes(codigoNuevaProvincia)
-    ) {
-      incompleteForm = true;
-      setErrProvincia(`
-        La provincia que intentas introducir ya existe. ¿Lo buscaste a fondo?
-        ¿O tal vez te estás confundiendo de número?
-      `);
-    }
-
-    if (grupo === 0) {
-      incompleteForm = true;
-      setErrGrupo(`
-        Se debe seleccionar un grupo o introducir el número y nombre de un
-        nuevo grupo.
-      `);
-    }
-
-    if (grupo === -1 && (!numeroNuevoGrupo || !nombreNuevoGrupo)) {
-      incompleteForm = true;
-      setErrGrupo(`
-        Se debe seleccionar un grupo o introducir el número y nombre de un
-        nuevo grupo.
-      `);
-    }
-
-    if (
-      grupo === -1 &&
-      listaGrupos
-        .filter(
-          (grupo) =>
-            grupo.provincia ===
-            (provincia === "inexistente" ? codigoNuevaProvincia : provincia)
-        )
-        .map((grupo) => grupo.numero)
-        .includes(parseInt(numeroNuevoGrupo))
-    ) {
-      incompleteForm = true;
-      setErrGrupo(`
-        El grupo que intentas introducir ya existe. ¿Lo buscaste a fondo?
-        ¿O tal vez te estás confundiendo de número?
-      `);
-    }
-
-    if (incompleteForm) return;
-
-    setEtapaRegistro((etapa) => etapa + 1);
+    if (!foundError) setEtapaRegistro((etapa) => etapa + 1);
   }
+
+  function resetProvincia() {
+    setProvincia("");
+    setCodigoNuevaProvincia("");
+    setNombreNuevaProvincia("");
+    setErrProvincia("");
+  }
+
+  function resetGrupo() {
+    setGrupo(0);
+    setNumeroNuevoGrupo("");
+    setNombreNuevoGrupo("");
+    setErrGrupo("");
+  }
+
+  const gruposProvincia = listaGrupos.filter((g) => g.provincia === provincia);
 
   return (
     <section id="scout-info-form" className="card">
@@ -164,41 +122,35 @@ export default function FormInfoScout({
             onChange={(e) => {
               const newCUM = e.target.value;
               setCUM(newCUM);
-              const listaCodigos = listaProvincias.map(
-                (provincia) => provincia.codigo
-              );
               if (newCUM.length < 3) {
-                setProvincia("");
+                if (!provincia) resetProvincia();
+                if (!grupo) resetGrupo();
                 return;
               }
-              if (listaCodigos.includes(newCUM.substring(0, 3))) {
-                setProvincia(newCUM.substring(0, 3).toUpperCase());
-              } else {
-                setProvincia("inexistente");
-              }
+              const arrCodigos = listaProvincias.map((p) => p.codigo);
+              const substrCUM = newCUM.substring(0, 3).toUpperCase();
+              if (!provincia && arrCodigos.includes(substrCUM))
+                setProvincia(substrCUM);
 
               setErrCUM("");
             }}
           />
-          <small className="text-danger">{errCUM}</small>
+          <small className="text-danger p-1">{errCUM}</small>
         </div>
 
         <div className="form-group">
           <label>Provincia: </label>
           <select
-            name="provincia"
             autoComplete="nope"
             className="form-control"
             value={provincia}
             onChange={(e) => {
+              resetGrupo();
+              resetProvincia();
               setProvincia(e.target.value);
-              setErrProvincia("");
-              if (provincia !== "inexistente") {
-                setCodigoNuevaProvincia("");
-                setNombreNuevaProvincia("");
-                setGrupo(0);
-                setNumeroNuevoGrupo("");
-                setNombreNuevoGrupo("");
+              if (e.target.value === "NULL") {
+                setCodigoNuevaProvincia(CUM.substring(0, 3).toUpperCase());
+                setGrupo(-1);
               }
             }}
           >
@@ -210,119 +162,103 @@ export default function FormInfoScout({
                 {provincia.codigo} - {provincia.nombre}
               </option>
             ))}
-            <option value="inexistente" key="inexistente">
+            <option value="NULL" key="NULL">
               Mi provincia no se encuentra en esta lista
             </option>
           </select>
-          <small className="text-danger">{errProvincia}</small>
+
+          {provincia === "NULL" && (
+            <div className="mt-2">
+              <label>Siglas y nombre de la provincia: </label>
+              <small>
+                Las siglas de tu provincia la puedes encontrar en los primeros
+                tres caracteres de tu CUM, por ejemplo, JAL - Jalisco.
+              </small>
+              <div className="d-flex">
+                <input
+                  type="text"
+                  min="3"
+                  max="3"
+                  autoComplete="nope"
+                  className="form-control w-25"
+                  value={codigoNuevaProvincia}
+                  onChange={(e) => {
+                    setCodigoNuevaProvincia(e.target.value);
+                    setErrProvincia("");
+                  }}
+                />
+                <input
+                  type="text"
+                  autoComplete="nope"
+                  className="form-control flex-grow-3"
+                  value={nombreNuevaProvincia}
+                  onChange={(e) => {
+                    setNombreNuevaProvincia(e.target.value);
+                    setErrProvincia("");
+                  }}
+                />
+              </div>
+            </div>
+          )}
+          <small className="text-danger p-1">{errProvincia}</small>
         </div>
 
-        {provincia === "inexistente" && (
-          <div className="form-group">
-            <label>Siglas y nombre de la provincia: </label>
-            <small>
-              Las siglas de tu provincia la puedes encontrar en los primeros
-              tres caracteres de tu CUM, por ejemplo, JAL - Jalisco.
-            </small>
-            <div className="d-flex">
-              <input
-                name="codigoNuevaProvincia"
-                type="text"
-                min="3"
-                max="3"
-                autoComplete="nope"
-                className="form-control w-25"
-                value={codigoNuevaProvincia}
-                onChange={(e) => {
-                  setCodigoNuevaProvincia(e.target.value);
-                  setErrProvincia("");
-                }}
-              />
-              <input
-                name="nombreNuevaProvincia"
-                type="text"
-                autoComplete="nope"
-                className="form-control flex-grow-3"
-                value={nombreNuevaProvincia}
-                onChange={(e) => {
-                  setNombreNuevaProvincia(e.target.value);
-                  setErrProvincia("");
-                }}
-              />
-            </div>
-          </div>
-        )}
-
-        <div
-          className={`form-group ${
-            provincia || nombreNuevaProvincia ? "" : "disabled-form"
-          }`}
-        >
+        <div className="form-group">
           <label>Grupo: </label>
           <select
-            name="grupo"
             autoComplete="nope"
-            className="form-control"
+            className={`form-control ${
+              !gruposProvincia.length && "disabled-form"
+            }`}
             value={grupo}
             onChange={(e) => {
+              resetGrupo();
               setGrupo(parseInt(e.target.value));
-              setErrGrupo("");
-              if (grupo > 0) {
-                setNumeroNuevoGrupo("");
-                setNombreNuevoGrupo("");
-              }
             }}
           >
             <option value="0" key="0" disabled>
               Selecciona el grupo al cual perteneces
             </option>
-            {listaGrupos
-              .filter((grupo) => grupo.provincia === provincia)
-              .map((grupo) => (
-                <option
-                  key={grupo.provincia + grupo.numero}
-                  value={grupo.numero}
-                >
-                  GPO {grupo.numero} - {grupo.nombre}
-                </option>
-              ))}
+            {gruposProvincia.map((g) => (
+              <option key={g.provincia + g.numero} value={g.numero}>
+                GPO {g.numero} - {g.nombre}
+              </option>
+            ))}
             <option value="-1" key="-1">
               Mi grupo no se encuentra en esta lista
             </option>
           </select>
-          <small className="text-danger">{errGrupo}</small>
-        </div>
 
-        {grupo === -1 && (
-          <div className="form-group">
-            <label>Número y nombre de grupo: </label>
-            <div className="d-flex">
-              <input
-                name="numeroNuevoGrupo"
-                type="number"
-                min="1"
-                autoComplete="nope"
-                className="form-control w-25"
-                value={numeroNuevoGrupo}
-                onChange={(e) => {
-                  setNumeroNuevoGrupo(e.target.value);
-                  setErrGrupo("");
-                }}
-              />
-              <input
-                name="nombreNuevoGrupo"
-                type="text"
-                autoComplete="nope"
-                className="form-control flex-grow-3"
-                value={nombreNuevoGrupo}
-                onChange={(e) => {
-                  setNombreNuevoGrupo(e.target.value);
-                  setErrGrupo("");
-                }}
-              />
+          {grupo === -1 && (
+            <div className="mt-2">
+              <label>Número y nombre de grupo: </label>
+              <div className="d-flex">
+                <input
+                  type="number"
+                  min="1"
+                  autoComplete="nope"
+                  className="form-control w-25"
+                  value={numeroNuevoGrupo}
+                  onChange={(e) => {
+                    setNumeroNuevoGrupo(e.target.value);
+                    setErrGrupo("");
+                  }}
+                />
+                <input
+                  type="text"
+                  autoComplete="nope"
+                  className="form-control flex-grow-3"
+                  value={nombreNuevoGrupo}
+                  onChange={(e) => {
+                    setNombreNuevoGrupo(e.target.value);
+                    setErrGrupo("");
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
+          <small className="text-danger p-1">{errGrupo}</small>
+        </div>
 
         <div className="flex-grow-1"></div>
 

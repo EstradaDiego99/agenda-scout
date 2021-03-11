@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Provincia } = require("./_model");
+const Provincia = require("./_model");
 
 // CREATE
 router.route("/").post((req, res) => {

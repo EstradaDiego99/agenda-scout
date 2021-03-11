@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { backendURL } from "../../globals";
 
@@ -21,56 +21,20 @@ export default function FormInfoCuenta({
 }) {
   const [contraseniaVerif, setContraseniaVerif] = useState("");
 
-  const [listaCorreos, setListaCorreos] = useState([]);
-
   const [errCorreo, setErrCorreo] = useState("");
   const [errContrasenia, setErrContrasenia] = useState("");
 
-  useEffect(() => {
-    async function setup() {
-      const resMiembros = await axios
-        .get(`${backendURL}/miembros/`)
-        .catch((err) => console.log(JSON.stringify(err)));
-      if (resMiembros.data.length > 0) {
-        setListaCorreos(resMiembros.data.map((m) => m.correo));
-      }
+  async function submit() {
+    const validationData = { correo, contrasenia, contraseniaVerif };
+    const resValidation = await axios
+      .post(`${backendURL}/signup/validate-form04`, validationData)
+      .catch((err) => err);
+    if (resValidation instanceof Error) {
+      const errData = resValidation.response.data;
+      setErrCorreo(errData.correo || "");
+      setErrContrasenia(errData.contrasenia || "");
+      return;
     }
-    setup();
-  }, []);
-
-  function submit() {
-    let incompleteForm = false;
-
-    if (!correo) {
-      incompleteForm = true;
-      setErrCorreo(`
-        El correo no puede estar vacío.
-      `);
-    }
-
-    if (listaCorreos.includes(correo)) {
-      incompleteForm = true;
-      setErrCorreo(`
-        Este correo ya se encuentra registrado. ¿No querrás iniciar sesión?
-      `);
-    }
-
-    if (contrasenia.length < 8) {
-      incompleteForm = true;
-      setErrContrasenia(`
-        La contrasenia debe ser de minimo 8 caracteres.
-      `);
-    }
-
-    if (contrasenia !== contraseniaVerif) {
-      incompleteForm = true;
-      setErrContrasenia(`
-        Las contraseñas deben coincidir.
-      `);
-    }
-
-    if (incompleteForm) return;
-
     registrarMiembro();
   }
 
@@ -82,7 +46,6 @@ export default function FormInfoCuenta({
           <small>Con este podrás iniciar sesión más adelante</small>
           <input
             type="email"
-            autoComplete="off"
             className="form-control"
             value={correo}
             placeholder="tu@correo"
@@ -98,8 +61,8 @@ export default function FormInfoCuenta({
           <label>Contraseña: </label>
           <input
             type="password"
-            autoComplete="off"
             className="form-control"
+            autoComplete="new-password"
             value={contrasenia}
             onChange={(e) => {
               setContrasenia(e.target.value);
@@ -109,8 +72,8 @@ export default function FormInfoCuenta({
           <label>Confirma tu contraseña: </label>
           <input
             type="password"
-            autoComplete="off"
             className="form-control"
+            autoComplete="new-password"
             value={contraseniaVerif}
             onChange={(e) => {
               setContraseniaVerif(e.target.value);

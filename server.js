@@ -29,6 +29,9 @@ app.use("/api/grupos", gruposRouter);
 const provinciasRouter = require("./src/provincia/_router");
 app.use("/api/provincias", provinciasRouter);
 
+const signup = require("./src/miembro/signup/_router");
+app.use("/api/signup", signup);
+
 const loginRouter = require("./src/miembro/login/_router");
 app.use("/api/login", loginRouter);
 
