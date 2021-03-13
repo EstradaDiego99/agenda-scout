@@ -11,6 +11,12 @@ h2 {
   -webkit-mask: url(../logo.svg) no-repeat center;
   mask: url(../logo.svg) no-repeat center;
   min-height: 136px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 #home-component small {
@@ -20,15 +26,98 @@ h2 {
 .manada .home-icon {
   background-color: var(--manada-regular);
 }
+.manada #buscador-miembros i {
+  color: var(--manada-oscuro);
+}
+.manada #buscador-miembros .buscador-input {
+  border-color: var(--manada-oscuro);
+}
+.manada #buscador-miembros .lista-miembros {
+  background-color: var(--manada-claro);
+}
 
 .tropa .home-icon {
   background-color: var(--tropa-regular);
+}
+.tropa #buscador-miembros i {
+  color: var(--tropa-oscuro);
+}
+.tropa #buscador-miembros .buscador-input {
+  border-color: var(--tropa-oscuro);
+}
+.tropa #buscador-miembros .lista-miembros {
+  background-color: var(--tropa-claro);
 }
 
 .comunidad .home-icon {
   background-color: var(--comunidad-regular);
 }
+.comunidad #buscador-miembros i {
+  color: var(--comunidad-oscuro);
+}
+.comunidad #buscador-miembros .buscador-input {
+  border-color: var(--comunidad-oscuro);
+}
+.comunidad #buscador-miembros .lista-miembros {
+  background-color: var(--comunidad-claro);
+}
 
 .clan .home-icon {
   background-color: var(--clan-regular);
+}
+.clan #buscador-miembros i {
+  color: var(--clan-oscuro);
+}
+.clan #buscador-miembros .buscador-input {
+  border-color: var(--clan-oscuro);
+}
+.clan #buscador-miembros .lista-miembros {
+  background-color: var(--clan-claro-bg);
+}
+
+#buscador-miembros > .form-group {
+  position: relative;
+}
+
+.buscador-input,
+.buscador-input:active,
+.buscador-input:focus {
+  background-color: transparent;
+}
+
+.buscador-input:active,
+.buscador-input:focus {
+  box-shadow: 0 0 0 0 rgb(0 0 0 / 25%);
+  border-color: inherit;
+}
+
+.buscador-input {
+  border: 0px;
+  border-bottom: 1px solid;
+}
+
+.with-icon > .form-control {
+  padding-left: 28px;
+}
+
+.with-icon > i {
+  position: absolute;
+}
+
+.lista-miembros {
+  border-radius: 4px;
+  background-color: white;
+  position: absolute;
+  width: calc(100% - 1rem);
+  box-shadow: 8px 8px 4px -6px rgba(0, 0, 0, 0.25);
+  filter: brightness(110%);
+}
+
+.miembro-resumen {
+  height: 3em;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.miembro-resumen .distintivo {
+  height: calc(3em - 8px);
 }

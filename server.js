@@ -38,6 +38,9 @@ app.use("/api/login", loginRouter);
 const authRouter = require("./src/_auth/_router");
 app.use("/api/authenticate", authRouter);
 
+const homeRouter = require("./src/home/_router");
+app.use("/api/home", homeRouter);
+
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "build")));
