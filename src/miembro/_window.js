@@ -44,7 +44,7 @@ export default function Miembro() {
       <Route path="/:CUM" exact>
         <div className={logged ? logged.seccion : ""}>
           <Header
-            showBack={true}
+            showBack={!!logged}
             showLogout={logged && logged.CUM === miembro.CUM}
           />
           <Perfil {...{ miembro, logged }} />
