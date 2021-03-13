@@ -31,7 +31,7 @@ export default function LogIn() {
 
   return (
     <>
-      <Header />
+      <Header logoLink="/" />
 
       <main
         id="login"

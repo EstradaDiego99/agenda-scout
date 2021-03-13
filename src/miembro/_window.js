@@ -43,7 +43,10 @@ export default function Miembro() {
     <Switch>
       <Route path="/:CUM" exact>
         <div className={logged ? logged.seccion : ""}>
-          <Header showLogout={logged && logged.CUM === miembro.CUM} />
+          <Header
+            showBack={true}
+            showLogout={logged && logged.CUM === miembro.CUM}
+          />
           <Perfil {...{ miembro, logged }} />
         </div>
       </Route>

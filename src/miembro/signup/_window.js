@@ -67,7 +67,7 @@ export default function SignUp() {
 
   return (
     <div className={seccion}>
-      <Header />
+      <Header showBack="true" />
 
       <main id="registro-component">
         <form autoComplete="off">
@@ -159,7 +159,7 @@ export default function SignUp() {
                       console.log(error);
                       alert(msg);
                     });
-                    history.goBack();
+                    history.push("/");
                   }}
                 />
               </div>
